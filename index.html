@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguyen Nhat Quang - Ultra Cyberpunk Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts (Orbitron & Share Tech Mono) -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            title: ['Orbitron', 'sans-serif'],
+            mono: ['Share Tech Mono', 'monospace'],
+          },
+          colors: {
+            cyber: {
+              black: '#030508',
+              dark: '#080d1a',
+              blue: '#00f0ff',
+              pink: '#ff007f',
+              yellow: '#ffe600',
+              purple: '#9d00ff',
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 10s linear infinite',
+            'spin-reverse': 'spin-reverse 14s linear infinite',
+            'scanline': 'scanline 8s linear infinite',
+            'glitch': 'glitch 1s infinite',
+          },
+          keyframes: {
+            'spin-reverse': {
+              '0%': { transform: 'rotate(360deg)' },
+              '100%': { transform: 'rotate(0deg)' },
+            },
+            'scanline': {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(1000%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Background setup using background.jpg with space theme fallback */
+    body {
+      background: #030508 url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #00f0ff;
+    }
+
+    /* CRT Overlay scanlines */
+    .scanline-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.4)
+      );
+      background-size: 100% 4px;
+    }
+
+    /* Cyber Geometric Cut-Corner Panels */
+    .cyber-panel {
+      background: rgba(8, 13, 26, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid #00f0ff;
+      clip-path: polygon(
+        0 0, 
+        calc(100% - 20px) 0, 
+        100% 20px, 
+        100% 100%, 
+        20px 100%, 
+        0 calc(100% - 20px)
+      );
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.15), inset 0 0 15px rgba(0, 240, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cyber-panel:hover {
+      border-color: #ff007f;
+      box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), inset 0 0 20px rgba(255, 0, 127, 0.15);
+      transform: translateY(-4px);
+    }
+
+    /* Neon Text Glows */
+    .glow-cyan {
+      text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+    }
+
+    .glow-pink {
+      text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
+    }
+
+    .glow-yellow {
+      text-shadow: 0 0 10px #ffe600, 0 0 20px #ffe600;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030508;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #00f0ff;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="font-mono antialiased selection:bg-cyber-pink selection:text-white min-h-screen relative overflow-x-hidden">
+
+  <!-- Scanline & Dark Grid Ambient Overlays -->
+  <div class="pointer-events-none fixed inset-0 z-50 scanline-overlay opacity-30"></div>
+  <div class="pointer-events-none fixed inset-0 z-40 bg-gradient-to-b from-black/70 via-transparent to-black/90"></div>
+
+  <div class="relative z-10">
+
+    <!-- Cyberpunk Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 border-b border-cyber-blue/30 bg-cyber-dark/90 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+        
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 bg-black border-2 border-cyber-blue flex items-center justify-center relative overflow-hidden group-hover:border-cyber-pink transition-colors">
+            <span class="font-title font-black text-cyber-blue group-hover:text-cyber-pink text-xl transition-colors glow-cyan">Q</span>
+            <div class="absolute inset-0 bg-cyber-blue/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-title font-black text-sm tracking-widest text-white">
+              QUANG<span class="text-cyber-blue">//</span>DEV
+            </span>
+            <span class="text-[9px] text-cyber-yellow tracking-widest">CYBER.HUD.V2026</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8 text-xs font-title tracking-widest text-slate-200">
+          <a href="#about" class="hover:text-cyber-blue transition-colors relative py-1 hover:glow-cyan">// ABOUT</a>
+          <a href="#hobbies" class="hover:text-cyber-pink transition-colors relative py-1 hover:glow-pink">// HOBBIES</a>
+          <a href="#career" class="hover:text-cyber-yellow transition-colors relative py-1 hover:glow-yellow">// CAREER</a>
+          <a href="#contact" class="hover:text-cyber-blue transition-colors relative py-1 hover:glow-cyan">// CONTACT</a>
+        </nav>
+
+        <!-- Status Tag -->
+        <div class="hidden sm:flex items-center gap-2 text-[10px] font-title bg-black/60 border border-cyber-blue px-3 py-1 text-cyber-blue">
+          <span class="w-2 h-2 bg-cyber-blue rounded-full animate-ping"></span>
+          <span class="tracking-widest">SYS_ONLINE</span>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="menuBtn" class="md:hidden text-cyber-blue text-2xl focus:outline-none" aria-label="Toggle Menu">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown -->
+      <div id="mobileMenu" class="hidden md:hidden bg-cyber-dark/95 border-b border-cyber-blue/30 px-6 py-4 flex-col gap-3 font-title text-xs tracking-widest">
+        <a href="#about" class="text-slate-200 hover:text-cyber-blue py-1 border-b border-white/5">// ABOUT</a>
+        <a href="#hobbies" class="text-slate-200 hover:text-cyber-pink py-1 border-b border-white/5">// HOBBIES</a>
+        <a href="#career" class="text-slate-200 hover:text-cyber-yellow py-1 border-b border-white/5">// CAREER</a>
+        <a href="#contact" class="text-slate-200 hover:text-cyber-blue py-1">// CONTACT</a>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen pt-32 pb-20 flex items-center justify-center px-4 relative">
+      <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
+        
+        <!-- Animated Profile HUD with quang.jpg -->
+        <div class="relative w-52 h-52 sm:w-60 sm:h-60 mb-8 flex items-center justify-center">
+          
+          <!-- Outer HUD Rotating Rings -->
+          <div class="absolute inset-0 rounded-full border-2 border-dashed border-cyber-blue/60 animate-spin-slow"></div>
+          <div class="absolute -inset-4 rounded-full border-2 border-cyber-pink/50 animate-spin-reverse"></div>
+          
+          <!-- Crosshair HUD Markers -->
+          <div class="absolute -top-6 text-cyber-blue text-xs font-title">+ TOP_HUD</div>
+          <div class="absolute -bottom-6 text-cyber-yellow text-xs font-title">POS: 108.20 / 16.04</div>
+
+          <!-- Profile Frame -->
+          <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-full p-1 bg-black border-2 border-cyber-blue overflow-hidden relative shadow-[0_0_30px_rgba(0,240,255,0.5)]">
+            <img 
+              src="quang.jpg" 
+              alt="Nguyen Nhat Quang" 
+              class="w-full h-full object-cover rounded-full filter contrast-110"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80';"
+            />
+          </div>
+
+          <!-- Badge -->
+          <div class="absolute bottom-0 bg-black border border-cyber-yellow text-cyber-yellow text-[10px] font-title px-3 py-0.5 tracking-widest shadow-md">
+            SUBJECT: NQ-2026
+          </div>
+        </div>
+
+        <div class="inline-flex items-center gap-2 px-4 py-1 bg-black/80 border border-cyber-pink text-xs font-title text-cyber-pink mb-4">
+          <i class="fa-solid fa-microchip animate-pulse"></i>
+          <span>CYBERNETIC_PERSONAL_INTERFACE</span>
+        </div>
+
+        <!-- Name Title -->
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black font-title tracking-wider text-white mb-3">
+          NGUYEN NHAT QUANG
+        </h1>
+
+        <!-- Role Subtitle -->
+        <p class="text-cyber-yellow font-title text-sm sm:text-lg tracking-widest mb-8 glow-yellow">
+          &lt; STUDENT // CODE_CREATOR // WEB_ARCHITECT &gt;
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 text-xs font-title font-bold tracking-widest">
+          <a href="#contact" class="px-8 py-3.5 bg-cyber-blue text-black hover:bg-white hover:shadow-[0_0_25px_#00f0ff] transition-all flex items-center gap-2">
+            <i class="fa-solid fa-terminal"></i> TRANSMIT_SIGNAL
+          </a>
+          <a href="#about" class="px-8 py-3.5 bg-black/80 border border-cyber-pink text-cyber-pink hover:bg-cyber-pink hover:text-white hover:shadow-[0_0_25px_#ff007f] transition-all flex items-center gap-2">
+            <i class="fa-solid fa-folder-open"></i> ACCESS_DATA
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        
+        <div class="flex items-center gap-3 mb-8">
+          <div class="text-cyber-blue font-title text-xl">[01]</div>
+          <h2 class="font-title text-2xl font-bold tracking-wider text-white glow-cyan">BIOGRAPHY_LOG</h2>
+          <div class="flex-1 h-[1px] bg-cyber-blue/30"></div>
+        </div>
+
+        <div class="cyber-panel p-6 sm:p-10 relative">
+          
+          <!-- Terminal Header Bar -->
+          <div class="flex items-center justify-between pb-4 mb-6 border-b border-cyber-blue/20 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 bg-red-500/80"></span>
+              <span class="w-3 h-3 bg-yellow-500/80"></span>
+              <span class="w-3 h-3 bg-green-500/80"></span>
+              <span class="ml-2 text-cyber-blue font-mono">// bio_manifest.sh</span>
+            </div>
+            <div class="text-[10px] text-cyber-yellow">STATUS: VERIFIED</div>
+          </div>
+
+          <!-- English Bio (Guaranteed 50+ words) -->
+          <div class="text-slate-200 leading-relaxed text-sm sm:text-base space-y-4 font-mono">
+            <p>
+              Hello everyone! My name is <strong class="text-cyber-blue font-bold">Nguyen Nhat Quang</strong>. I am currently an enthusiastic student who is deeply passionate about information technology, modern software development, and modern visual web styling.
+            </p>
+            <p>
+              When I am free, I love immersing myself in interactive video games to improve logic and strategy, playing sports to stay active, and dedicating hours to writing code and designing vibrant, interactive web applications. As a student, my main objective is to continually broaden my technical knowledge, build creative real-world projects, master dynamic web coding technologies, and evolve into a highly skilled full-stack developer in the near future.
+            </p>
+          </div>
+
+          <!-- Quick Stats Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-cyber-blue/20 text-xs">
+            <div class="p-3 bg-black/60 border border-cyber-blue/30">
+              <span class="text-slate-500 block text-[10px] font-title">// NAME</span>
+              <span class="text-white font-title font-bold">Nguyen Nhat Quang</span>
+            </div>
+            <div class="p-3 bg-black/60 border border-cyber-pink/30">
+              <span class="text-slate-500 block text-[10px] font-title">// STATUS</span>
+              <span class="text-cyber-pink font-title font-bold">Student</span>
+            </div>
+            <div class="p-3 bg-black/60 border border-cyber-yellow/30">
+              <span class="text-slate-500 block text-[10px] font-title">// OBJECTIVE</span>
+              <span class="text-cyber-yellow font-title font-bold">Full-Stack Dev</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section id="hobbies" class="py-20 px-4">
+      <div class="max-w-5xl mx-auto">
+        
+        <div class="flex items-center gap-3 mb-8">
+          <div class="text-cyber-pink font-title text-xl">[02]</div>
+          <h2 class="font-title text-2xl font-bold tracking-wider text-white glow-pink">PASSIONS_&amp;_HOBBIES</h2>
+          <div class="flex-1 h-[1px] bg-cyber-pink/30"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Gaming -->
+          <div class="cyber-panel p-6 flex flex-col items-start border-l-2 border-l-cyber-blue">
+            <div class="w-12 h-12 bg-black border border-cyber-blue text-cyber-blue flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <h3 class="font-title text-base font-bold text-white mb-2">// GAMING</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Tactical strategy and competitive video games to train sharp reaction speeds and logic.
+            </p>
+          </div>
+
+          <!-- Sports -->
+          <div class="cyber-panel p-6 flex flex-col items-start border-l-2 border-l-cyber-pink">
+            <div class="w-12 h-12 bg-black border border-cyber-pink text-cyber-pink flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-volleyball"></i>
+            </div>
+            <h3 class="font-title text-base font-bold text-white mb-2">// SPORTS</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Playing outdoor sports to maintain endurance, physical strength, and positive energy.
+            </p>
+          </div>
+
+          <!-- Writing Code -->
+          <div class="cyber-panel p-6 flex flex-col items-start border-l-2 border-l-cyber-yellow">
+            <div class="w-12 h-12 bg-black border border-cyber-yellow text-cyber-yellow flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="font-title text-base font-bold text-white mb-2">// CODING</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Writing clean scripts, solving code algorithms, and building software structures.
+            </p>
+          </div>
+
+          <!-- Building Webs -->
+          <div class="cyber-panel p-6 flex flex-col items-start border-l-2 border-l-cyber-purple">
+            <div class="w-12 h-12 bg-black border border-cyber-purple text-cyber-purple flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <h3 class="font-title text-base font-bold text-white mb-2">// WEB_DEV</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Crafting cyberpunk-themed web apps, colorful UI components, and dynamic experiences.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career" class="py-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        
+        <div class="flex items-center gap-3 mb-8">
+          <div class="text-cyber-yellow font-title text-xl">[03]</div>
+          <h2 class="font-title text-2xl font-bold tracking-wider text-white glow-yellow">CURRENT_OCCUPATION</h2>
+          <div class="flex-1 h-[1px] bg-cyber-yellow/30"></div>
+        </div>
+
+        <div class="cyber-panel p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 border-r-2 border-r-cyber-yellow">
+          <div class="w-20 h-20 bg-black border border-cyber-yellow flex items-center justify-center text-3xl text-cyber-yellow shrink-0">
+            <i class="fa-solid fa-user-graduate"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-cyber-yellow font-title tracking-widest">// ACADEMIC_STATUS</span>
+            <h3 class="font-title text-xl font-bold text-white mb-2">FULL-TIME STUDENT</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Currently pursuing university education with a strong emphasis on computer science, modern software development practices, and front-end engineering.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4">
+      <div class="max-w-5xl mx-auto">
+        
+        <div class="flex items-center gap-3 mb-8">
+          <div class="text-cyber-blue font-title text-xl">[04]</div>
+          <h2 class="font-title text-2xl font-bold tracking-wider text-white glow-cyan">COMMUNICATION_CHANNELS</h2>
+          <div class="flex-1 h-[1px] bg-cyber-blue/30"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Facebook Card -->
+          <a href="https://www.facebook.com/profile.php?id=61589458839944" target="_blank" rel="noopener noreferrer" class="cyber-panel p-6 flex flex-col items-center text-center group border-l-2 border-l-blue-500">
+            <div class="w-14 h-14 bg-black border border-blue-500 text-blue-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              <i class="fa-brands fa-facebook-f"></i>
+            </div>
+            <span class="text-[10px] text-slate-400 font-title">// FACEBOOK</span>
+            <h3 class="font-title text-sm font-bold text-white mb-4">Nguyen Quang</h3>
+            <span class="w-full py-2 bg-blue-600/20 border border-blue-500 text-blue-300 text-xs font-title group-hover:bg-blue-600 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              OPEN_LINK <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </span>
+          </a>
+
+          <!-- Zalo Card using zalo.jpg -->
+          <a href="https://zalo.me/0971663006" target="_blank" rel="noopener noreferrer" class="cyber-panel p-6 flex flex-col items-center text-center group border-l-2 border-l-cyber-blue">
+            
+            <div class="w-14 h-14 bg-black border border-cyber-blue flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden relative p-1">
+              <img 
+                src="zalo.jpg" 
+                alt="Zalo Logo" 
+                class="w-full h-full object-cover rounded-sm filter contrast-110"
+                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <div class="hidden w-full h-full items-center justify-center text-cyber-blue text-xl">
+                <i class="fa-solid fa-comment-dots"></i>
+              </div>
+            </div>
+
+            <span class="text-[10px] text-slate-400 font-title">// ZALO_PHONE</span>
+            <h3 class="font-title text-sm font-bold text-white mb-4">0971 663 006</h3>
+            <span class="w-full py-2 bg-cyber-blue/20 border border-cyber-blue text-cyber-blue text-xs font-title group-hover:bg-cyber-blue group-hover:text-black transition-all flex items-center justify-center gap-2">
+              SEND_CHAT <i class="fa-solid fa-paper-plane text-[10px]"></i>
+            </span>
+          </a>
+
+          <!-- Email Card -->
+          <a href="mailto:nguyenquang270206@gmail.com" class="cyber-panel p-6 flex flex-col items-center text-center group border-l-2 border-l-cyber-pink">
+            <div class="w-14 h-14 bg-black border border-cyber-pink text-cyber-pink flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <span class="text-[10px] text-slate-400 font-title">// DIRECT_EMAIL</span>
+            <h3 class="font-title text-xs font-bold text-white mb-4 truncate w-full">nguyenquang270206@gmail.com</h3>
+            <span class="w-full py-2 bg-cyber-pink/20 border border-cyber-pink text-cyber-pink text-xs font-title group-hover:bg-cyber-pink group-hover:text-white transition-all flex items-center justify-center gap-2">
+              SEND_MAIL <i class="fa-solid fa-bolt text-[10px]"></i>
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-cyber-blue/30 bg-cyber-dark/90 text-center text-xs text-slate-400 font-mono">
+      <div class="max-w-7xl mx-auto px-4">
+        <p>© 2026 NGUYEN NHAT QUANG. ULTRA CYBERPUNK PORTFOLIO SYSTEM.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+      });
+    });
+  </script>
+</body>
+</html>
